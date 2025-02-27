@@ -1,0 +1,53 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+    <title>Pi Checker</title>
+    <style>
+        .correct { color: green; }
+        .incorrect { color: red; }
+    </style>
+</head>
+<body>
+<script language="JavaScript" type="text/javascript">
+<!--
+const Digits = "1415926535897932384626433832795028841971693993751058209749445923078164062862089986280348253421170679821480865132823066470938446095505822317253594081284811174502841027019385211055596446229489549303819644288109756659334461284756482337867831652712019091456485669234603486104543266482133936072602491412737245870066063155881748815209209628292540917153643678925903600113";
+
+function checkdigits(inp) {
+    const start = parseInt(document.getElementById("start").value, 10);
+    const end = parseInt(document.getElementById("end").value, 10);
+    const tmp = Digits.substring(start - 1, end);
+    
+    if (start < 1 || end > 365 || start >= end) {
+        document.getElementById("checkdigits").innerHTML = "Invalid range. Please ensure the start digit is at least 1 and the end digit is at most 365, and that the start digit is less than the end digit.";
+        return;
+    }
+
+    const correctDigits = tmp.substring(0, inp.length);
+    
+    let report = `${inp.length} digits of PI entered.`;
+
+    document.getElementById("checkdigits").innerHTML = "<code>\n" + report + "\n</code>";
+}
+
+//-->
+</script>
+
+<h2>Know your Pi?</h2>
+
+Enter the starting and ending digit indices, then enter as many digits of Pi as you know in the box, and see if you're right!
+
+<br><br>
+
+<form action="javascript:void(0);">
+    <label for="start">Start Digit:</label>
+    <input type="number" id="start" name="start" required>
+    <label for="end">End Digit:</label>
+    <input type="number" id="end" name="end" required>
+    <br><br>
+    <input type="text" size="40" name="pi" onkeyup="if (event.keyCode == 13) {document.getElementById('btnCheck').click();}" autocomplete="off">
+    <input type="button" id="btnCheck" onclick="checkdigits(this.form.pi.value)" value="Check Pi Digits!">
+</form>
+<div id="checkdigits">
+</div>
+</body>
+</html>
