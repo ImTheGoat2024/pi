@@ -3,10 +3,13 @@
 <head>
     <title>Pi Checker</title>
     <style>
-        .pi-digits {
-            white-space: pre-wrap;
-            word-wrap: break-word;
-            width: 100%;
+        .pi-digits span {
+            display: inline-block;
+            width: 20px; /* Adjust width as necessary */
+            text-align: center;
+        }
+        .pi-line {
+            display: block;
         }
     </style>
 </head>
@@ -28,12 +31,17 @@ function checkdigits(inp) {
     let outp1 = "";
     let outp2 = "";
     let correct = 0;
+    const charsPerLine = 50; // Adjust the number of characters per line as needed
 
     for (let i = 0; i < inp.length; i++) {
         const col = (tmp.charAt(i) === inp.charAt(i)) ? "green" : "red";
         correct = (col === "green") ? correct + 1 : correct;
         outp1 += "<span style='background-color:" + col + ";color:white;'>" + inp.charAt(i) + "</span>";
         outp2 += "<span style='background-color:" + col + ";color:white;'>" + tmp.charAt(i) + "</span>";
+        if ((i + 1) % charsPerLine === 0) {
+            outp1 += "<span class='pi-line'></span>";
+            outp2 += "<span class='pi-line'></span>";
+        }
     }
 
     const report = `<span style='background-color:green;color:green;border-top:1px solid black;'>${Rep(correct, ".")}</span><span style='background-color:red;color:red;border-top:1px solid black;'>${Rep(inp.length - correct, ".")}</span><br />${inp.length} digits of PI entered. <i>${Math.floor(correct / inp.length * 100)}%</i> or <i>${correct}/${inp.length}</i> were correct!`;
