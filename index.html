@@ -22,14 +22,14 @@ function checkdigits(inp) {
     let outp2 = "";
     let correct = 0;
 
-    for (let i = 0; i < inp.length; i++) {
+    for (let i = 0; i < (end - start + 1); i++) {
         const col = (tmp.charAt(i) === inp.charAt(i)) ? "green" : "red";
         correct = (col === "green") ? correct + 1 : correct;
         outp1 += "<span style='background-color:" + col + ";color:white;'>" + inp.charAt(i) + "</span>";
         outp2 += "<span style='background-color:" + col + ";color:white;'>" + tmp.charAt(i) + "</span>";
     }
 
-    const report = `<span style='background-color:green;color:green;border-top:1px solid black;'>${Rep(correct, ".")}</span><span style='background-color:red;color:red;border-top:1px solid black;'>${Rep(inp.length - correct, ".")}</span><br />${inp.length} digits of PI entered. <i>${Math.floor(correct / end)}%</i> or <i>${correct}/${end}</i> were correct!`;
+    const report = `<span style='background-color:green;color:green;border-top:1px solid black;'>${Rep(correct, ".")}</span><span style='background-color:red;color:red;border-top:1px solid black;'>${Rep(end - start + 1 - correct, ".")}</span><br />${inp.length} digits of PI entered. <i>${Math.floor((correct / (end - start + 1)) * 100)}%</i> or <i>${correct}/${end - start + 1}</i> were correct!`;
     document.getElementById("checkdigits").innerHTML = "<code>\n" + outp1 + "\n<br />\n" + outp2 + "\n<br />\n" + report + "\n</code>";
 }
 
