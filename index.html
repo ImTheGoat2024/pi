@@ -2,10 +2,6 @@
 <html>
 <head>
     <title>Pi Checker</title>
-    <style>
-        .correct { color: green; }
-        .incorrect { color: red; }
-    </style>
 </head>
 <body>
 <script language="JavaScript" type="text/javascript">
@@ -16,19 +12,32 @@ function checkdigits(inp) {
     const start = parseInt(document.getElementById("start").value, 10);
     const end = parseInt(document.getElementById("end").value, 10);
     const tmp = Digits.substring(start - 1, end);
-    
+
     if (start < 1 || end > 365 || start >= end) {
         document.getElementById("checkdigits").innerHTML = "Invalid range. Please ensure the start digit is at least 1 and the end digit is at most 365, and that the start digit is less than the end digit.";
         return;
     }
 
-    const correctDigits = tmp.substring(0, inp.length);
-    
-    let report = `${inp.length} digits of PI entered.`;
+    let outp1 = "";
+    let outp2 = "";
+    let correct = 0;
 
-    document.getElementById("checkdigits").innerHTML = "<code>\n" + report + "\n</code>";
+    for (let i = 0; i < inp.length; i++) {
+        const col = (tmp.charAt(i) === inp.charAt(i)) ? "green" : "red";
+        correct = (col === "green") ? correct + 1 : correct;
+        outp1 += "<span style='background-color:" + col + ";color:white;'>" + inp.charAt(i) + "</span>";
+        outp2 += "<span style='background-color:" + col + ";color:white;'>" + tmp.charAt(i) + "</span>";
+    }
+
+    const report = `<span style='background-color:green;color:green;border-top:1px solid black;'>${Rep(correct, ".")}</span><span style='background-color:red;color:red;border-top:1px solid black;'>${Rep(inp.length - correct, ".")}</span><br />${inp.length} digits of PI entered. <i>${Math.floor(correct / inp.length * 100)}%</i> or <i>${correct}/${inp.length}</i> were correct!`;
+    document.getElementById("checkdigits").innerHTML = "<code>\n" + outp1 + "\n<br />\n" + outp2 + "\n<br />\n" + report + "\n</code>";
 }
 
+function Rep(n, c) {
+    let r = "";
+    for (let i = 0; i < n; i++) r += c;
+    return r;
+}
 //-->
 </script>
 
