@@ -2,6 +2,13 @@
 <html>
 <head>
     <title>Pi Checker</title>
+    <style>
+        .pi-digits {
+            white-space: pre-wrap;
+            word-wrap: break-word;
+            width: 100%;
+        }
+    </style>
 </head>
 <body>
 <script language="JavaScript" type="text/javascript">
@@ -30,7 +37,7 @@ function checkdigits(inp) {
     }
 
     const report = `<span style='background-color:green;color:green;border-top:1px solid black;'>${Rep(correct, ".")}</span><span style='background-color:red;color:red;border-top:1px solid black;'>${Rep(inp.length - correct, ".")}</span><br />${inp.length} digits of PI entered. <i>${Math.floor(correct / inp.length * 100)}%</i> or <i>${correct}/${inp.length}</i> were correct!`;
-    document.getElementById("checkdigits").innerHTML = "<code>\n" + outp1 + "\n<br />\n" + outp2 + "\n<br />\n" + report + "\n</code>";
+    document.getElementById("checkdigits").innerHTML = `<code class="pi-digits">\n${outp1}\n<br />\n${outp2}\n<br />\n${report}\n</code>`;
 }
 
 function Rep(n, c) {
